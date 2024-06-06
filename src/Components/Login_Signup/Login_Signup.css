@@ -81,10 +81,15 @@
     justify-content: center;
     align-items: center;
     width: 220px;
-    height: 59x;
-    color: blue;
+    color: white;
+    height: 59px;
+    background: blue;
     border-radius: 50px;
-    font-size: 19px;
-    font-weight: 700;
+    font-size: 25px;
+    font-weight: 800;
     cursor: pointer;
+  }
+  .gray{
+    background: #eaeaea;
+    color: #676767;
   }
