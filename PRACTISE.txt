@@ -1,0 +1,946 @@
+ <button onClick={onLogin} type="button">
+                  LOGINN
+                </button>
+
+
+                const Header = ({ onLogin }) => {
+
+
+
+import { useState } from "react";
+import "./Login.css";
+
+const Login = ({ isVisible, onSignup, onClose }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const storedUsername = localStorage.getItem("username");
+    const storedPassword = localStorage.getItem("password");
+
+    if (username === storedUsername && password === storedPassword) {
+      alert("Login Successful!");
+      setErrorMessage("");
+      setUsername("");
+      setPassword("");
+      setErrorMessage("");
+      onClose();
+    } else {
+      setErrorMessage("Invalid username or password. Please try again.");
+    }
+  };
+
+  if (!isVisible) return null;
+
+  return (
+    <>
+      <div className="login-page">
+        <div className="login-page-content">
+          <span className="close-btn" onClick={onClose}>
+            &times;
+          </span>
+
+          <h2>Login</h2>
+
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="loginUsername">Username:</label>
+            <input
+              type="text"
+              className="awsome_input"
+              name="username"
+              placeholder="Type your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <span className="awsome_input_border"></span>
+
+            <label htmlFor="loginPassword">Password:</label>
+            <input
+              type="password"
+              className="awsome_input"
+              name="password"
+              placeholder="Type your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span className="awsome_input_border"></span>
+
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+            <p className="forgor-password">Forgot Password?</p>
+
+            <button type="submit">Login</button>
+
+            <p className="sign-up-paragraph">
+              Need an account?
+              <span>
+                <a href="#" onClick={onSignup}>
+                  SIGN UP
+                </a>
+              </span>
+            </p>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Login;
+
+
+
+.login-page {
+  /* Write noe close the login page */
+
+  display: flex;
+
+  position: fixed;
+
+  left: 0;
+
+  top: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  vertical-align: middle;
+
+  margin: 0 auto;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 10px;
+
+  z-index: 10000;
+}
+
+.login-page-content {
+  border: 1px solid black;
+
+  background-color: rgb(129, 160, 218);
+
+  box-shadow: inset 10px 10px 89px 1px rgba(193, 230, 191, 0.56);
+
+  padding: 25px;
+
+  width: 270px;
+
+  height: 540px;
+
+  position: relative;
+
+  margin: 0 auto;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.close-btn {
+  position: absolute;
+
+  top: 10px;
+
+  right: 10px;
+
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+.login-page-content h2 {
+  margin-top: 0px;
+
+  font-size: 1.6rem;
+
+  text-align: center;
+}
+
+.login-page-content form {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.login-page-content label {
+  margin-top: 10px;
+
+  color: black;
+
+  font-size: 12px;
+}
+
+.login-page-content input {
+  margin-top: 5px;
+
+  margin-bottom: 10px;
+
+  padding: 10px;
+
+  border-bottom: 1px solid #25285f;
+}
+
+.awsome_input {
+  padding: 5px 10px;
+
+  border: none;
+
+  background: transparent;
+
+  display: block;
+}
+
+.awsome_input_border {
+  display: inline-block;
+
+  width: 0px;
+
+  height: 2px;
+
+  background: #070d8d;
+
+  position: relative;
+
+  top: -5px;
+
+  transition: all ease-in-out 0.15s;
+}
+
+.awsome_input:hover + .awsome_input_border,
+.awsome_input:active + .awsome_input_border,
+.awsome_input:focus + .awsome_input_border {
+  width: 100%;
+}
+
+button[type="submit"] {
+  color: white;
+
+  background: linear-gradient(to left, #1f225a, #bdbee0);
+
+  padding: 6px 0px;
+
+  width: 100%;
+
+  justify-content: center;
+
+  height: 50px;
+
+  border-radius: 25px;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  margin-top: 40px;
+
+  margin-bottom: 20px;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(to left, #bdbee0, #1f225a);
+
+  color: rgb(2, 1, 2);
+}
+
+.forgor-password {
+  text-align: right;
+
+  color: rgb(85, 83, 83);
+
+  font-size: 15px;
+
+  font-weight: 550;
+
+  cursor: pointer;
+}
+
+.forgor-password:hover {
+  color: red;
+
+  transition: 0.5s;
+}
+
+.login-icons {
+  display: flex;
+
+  gap: 30px;
+
+  justify-content: center;
+}
+
+.login-icon-google {
+  border: 1px solid red;
+
+  box-shadow: 1px 1px red;
+
+  padding: 10px 13px;
+
+  border-radius: 100%;
+
+  cursor: pointer;
+
+  background-color: white;
+}
+
+.login-icon-google i {
+  color: red;
+
+  text-shadow: 2px 2px 4px rgb(240, 205, 160);
+
+  font-size: 16px;
+
+  font-weight: bold;
+}
+
+.login-icon-facebook {
+  border: 1px solid #316ff6;
+
+  box-shadow: 1px 1px #316ff6;
+
+  cursor: pointer;
+
+  padding: 10px 13px;
+
+  border-radius: 100%;
+
+  background-color: white;
+}
+
+.login-icon-facebook i {
+  color: #316ff6;
+
+  text-shadow: 2px 2px 4px rgb(131, 174, 230);
+
+  font-size: 16px;
+
+  font-weight: bold;
+}
+
+.login-icon-linkedin {
+  border: 1px solid #0077b5;
+
+  box-shadow: 1px 1px #0077b5;
+
+  padding: 10px 13px;
+
+  border-radius: 100%;
+
+  cursor: pointer;
+
+  background-color: white;
+}
+
+.login-icon-linkedin i {
+  color: #0077b5;
+
+  text-shadow: 2px 2px 4px #46aee6;
+
+  font-size: 16px;
+
+  font-weight: bold;
+}
+
+.sign-up-paragraph {
+  font-size: 13px;
+
+  text-align: center;
+
+  color: #252975;
+}
+
+.sign-up-paragraph span a {
+  display: flex;
+
+  font-size: 15px;
+
+  margin-top: 10px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  justify-content: center;
+}
+
+.sign-up-paragraph span a:hover {
+  color: red;
+
+  transition: 0.5s;
+}
+
+
+
+
+import { useState } from "react";
+import "./Signup.css";
+
+const Signup = ({ isVisible, onClose, onLogin }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [usernameMessage, setUsernameMessage] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordDoNotMessage, setPasswordDoNotMessage] = useState("");
+  const [finalMessage, setFinalMessage] = useState("");
+
+  const isLengthValid = (str, min, max) =>
+    str.length >= min && str.length <= max;
+
+  const hasCapitalLetter = (str) => /[A-Z]/.test(str);
+
+  const hasSpecialCharacter = (str) => /[‾!@#$%^&*]/.test(str);
+
+  const hasNumber = (str) => /[0-9]/.test(str);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    let isUsernameValid = isLengthValid(username, 3, 12);
+    setUsernameMessage(
+      isUsernameValid ? " " : "Username must be between 3 and 12 characters."
+    );
+
+    let isPasswordValid = true;
+
+    if (!isLengthValid(password, 6, 12)) {
+      setPasswordMessage("Password must be between 6 and 12 characters.");
+      isPasswordValid = false;
+    } else if (!hasCapitalLetter(password)) {
+      setPasswordMessage("Password must contain at least one capital letter.");
+      isPasswordValid = false;
+    } else if (!hasSpecialCharacter(password)) {
+      setPasswordMessage(
+        "Password must contain at least one special character."
+      );
+      isPasswordValid = false;
+    } else if (!hasNumber(password)) {
+      setPasswordMessage("Password must contain at least one number.");
+      isPasswordValid = false;
+    } else {
+      setPasswordMessage("");
+    }
+
+    if (password !== confirmPassword) {
+      setPasswordDoNotMessage("Passwords do not match.");
+      isPasswordValid = false;
+    } else {
+      setPasswordDoNotMessage("");
+    }
+
+    if (isUsernameValid && isPasswordValid) {
+      setFinalMessage("Signup completed!");
+
+      // Store signup details in localStorage
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+
+      setTimeout(() => {
+        setFinalMessage("");
+        onClose();
+        setUsername("");
+        setPassword("");
+        setConfirmPassword("");
+        setUsernameMessage("");
+        setPasswordMessage("");
+        setPasswordDoNotMessage("");
+      }, 2000);
+    } else {
+      setFinalMessage("");
+    }
+  };
+
+  if (!isVisible) return null;
+
+  return (
+    <>
+      <div className="signup-page">
+        <div className="signup-page-content">
+          <span className="close-btn" onClick={onClose}>
+            &times;
+          </span>
+
+          <h2>Sign Up</h2>
+
+          <p id="finalMessage" className={finalMessage ? "completed" : ""}>
+            {finalMessage}
+          </p>
+
+          <form id="signupForm" onSubmit={handleSubmit}>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              className="awsome_input"
+              id="username"
+              name="username"
+              placeholder="Type your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <p id="usernameMessage">{usernameMessage}</p>
+
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              className="awsome_input"
+              name="password"
+              placeholder="Type your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <p id="passwordMessage">{passwordMessage}</p>
+
+            <label htmlFor="confirmPassword">Confirm Password:</label>
+            <input
+              type="password"
+              className="awsome_input"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Type your confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <p id="passwordDoNotMessage">{passwordDoNotMessage}</p>
+
+            <button type="submit">Sign Up</button>
+
+            <p className="sign-up-paragraph">
+              <span>
+                <a href="#" onClick={onLogin}>
+                  Login
+                </a>
+              </span>
+            </p>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Signup;
+
+
+.signup-page {
+  left: 0;
+
+  top: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  vertical-align: middle;
+
+  margin: 0 auto;
+
+  justify-content: center;
+
+  align-items: center;
+
+  display: flex;
+
+  position: fixed;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 10px;
+
+  z-index: 10000;
+}
+
+.signup-page .signup-page-content {
+  border: 1px solid black;
+
+  box-shadow: inset 10px 10px 89px 1px rgba(193, 230, 191, 0.56);
+
+  background-color: rgb(129, 160, 218);
+
+  padding: 25px;
+
+  width: 270px;
+
+  height: 540px;
+
+  position: relative;
+
+  margin: 0 auto;
+}
+
+.signup-page .signup-page-content h2 {
+  margin-top: 0;
+
+  font-size: 1.6rem;
+
+  text-align: center;
+}
+
+.signup-page .signup-page-content form {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.signup-page .signup-page-content label {
+  font-size: 12px;
+
+  color: black;
+}
+
+.signup-page .signup-page-content input {
+  margin-bottom: 10px;
+
+  padding: 10px;
+
+  border-bottom: 1px solid rgb(0, 0, 0);
+
+  border-top: none;
+
+  border-left: none;
+
+  border-right: none;
+
+  background: transparent;
+}
+
+.signup-page .signup-page-content input.error {
+  border-bottom: 1px solid red; /* Red border for errors */
+}
+
+.signup-page .awsome_input {
+  padding: 5px 10px;
+
+  border: none;
+
+  background: transparent;
+
+  display: block;
+}
+
+.signup-page .awsome_input_border {
+  display: inline-block;
+
+  width: 0;
+
+  height: 2px;
+
+  background: #f5c02f;
+
+  position: relative;
+
+  top: -5px;
+
+  transition: all ease-in-out 0.15s;
+}
+
+.signup-page .awsome_input:hover,
+.signup-page .awsome_input:active,
+.signup-page .awsome_input:focus {
+  outline: none;
+}
+
+.signup-page .awsome_input:hover + .awsome_input_border,
+.signup-page .awsome_input:active + .awsome_input_border,
+.signup-page .awsome_input:focus + .awsome_input_border {
+  width: 100%;
+}
+
+.signup-page button[type="submit"] {
+  color: white;
+
+  background: linear-gradient(to left, #1f225a, #bdbee0);
+
+  padding: 6px 0;
+
+  width: 100%;
+
+  justify-content: center;
+
+  margin: 0 auto;
+
+  height: 50px;
+
+  border-radius: 25px;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  margin-top: 20px;
+
+  margin-bottom: 20px;
+}
+
+.signup-page button[type="submit"]:hover {
+  background: linear-gradient(to left, #bdbee0, #1f225a);
+
+  color: rgb(2, 1, 2);
+}
+
+.signup-page .horizontal-line {
+  border: 1px solid rgb(126, 126, 126);
+
+  width: 100%;
+
+  margin-top: 40px;
+}
+
+.signup-page .or {
+  position: relative;
+
+  top: -19px;
+
+  left: 120px;
+
+  width: 29px;
+
+  text-align: center;
+
+  height: 20px;
+
+  background-color: white;
+
+  border: 1px solid #b3b3db;
+}
+
+.signup-page .or span {
+  color: #b3b3db;
+}
+
+.signup-page .signup-icons {
+  display: flex;
+
+  gap: 30px;
+
+  justify-content: center;
+}
+
+.signup-page .signup-icon-google {
+  border: 1px solid red;
+
+  box-shadow: 1px 1px red;
+
+  padding: 10px 13px;
+
+  border-radius: 100%;
+
+  cursor: pointer;
+
+  background-color: white;
+}
+
+.signup-page .signup-icon-google i {
+  color: red;
+
+  text-shadow: 2px 2px 4px rgb(240, 205, 160);
+
+  font-size: 16px;
+
+  font-weight: bold;
+}
+
+.signup-page .signup-icon-facebook {
+  border: 1px solid #316ff6;
+
+  box-shadow: 1px 1px #316ff6;
+
+  cursor: pointer;
+
+  padding: 10px 13px;
+
+  border-radius: 100%;
+
+  background-color: white;
+}
+
+.signup-page .signup-icon-facebook i {
+  color: #316ff6;
+
+  text-shadow: 2px 2px 4px rgb(131, 174, 230);
+
+  font-size: 16px;
+
+  font-weight: bold;
+}
+
+.signup-page .signup-icon-linkedin {
+  border: 1px solid #0077b5;
+
+  box-shadow: 1px 1px #0077b5;
+
+  padding: 10px 13px;
+
+  border-radius: 100%;
+
+  cursor: pointer;
+
+  background-color: white;
+}
+
+.signup-page .signup-icon-linkedin i {
+  color: #0077b5;
+
+  text-shadow: 2px 2px 4px #46aee6;
+
+  font-size: 16px;
+
+  font-weight: bold;
+}
+
+.signup-page .sign-up-paragraph {
+  font-size: 18px;
+
+  text-align: center;
+
+  color: #252975;
+}
+
+.signup-page .sign-up-paragraph span a {
+  display: flex;
+
+  font-size: 16px;
+
+  margin: 0 auto;
+
+  text-align: center;
+
+  justify-content: center;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.signup-page .sign-up-paragraph span:hover a {
+  color: red;
+
+  transition: 0.5s;
+}
+
+.success {
+  color: green;
+
+  font-size: 12px;
+}
+
+#errorMessage {
+  color: red; /* Red color for error messages */
+
+  margin-top: -10px;
+}
+
+#finalMessage {
+  position: fixed;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  margin: 0 auto;
+
+  margin-left: 35px;
+
+  text-align: center;
+
+  margin-top: -20px;
+}
+
+#usernameMessage.valid,
+#passwordMessage.valid,
+#finalMessage.completed,
+#passwordDoNotMessage {
+  color: green; /* Green color for success messages */
+
+  font-size: 14px;
+
+  margin-top: -8px;
+}
+
+#usernameMessage.invalid,
+#passwordMessage.invalid,
+#passwordDoNotMessage {
+  color: red; /* Red color for error messages */
+
+  font-size: 14px;
+
+  margin-top: -8px;
+}
+
+#passwordMessage,
+#usernameMessage,
+#passwordDoNotMessage {
+  font-size: 14px;
+
+  color: rgb(187, 15, 15);
+
+  margin-top: -8px;
+
+  font-weight: 100;
+}
+
+
+
+
+
+import "./App.css";
+import { useState } from "react";
+import Header from "./Header/Header";
+import Login from "./Pages/Login/Login";
+import Signup from "./Pages/Signup/Signup";
+
+function App() {
+  const [isLoginVisible, setLoginVisible] = useState(false);
+  const [isSignupVisible, setSignupVisible] = useState(false);
+
+  const handleLoginClick = () => {
+    setLoginVisible(true);
+    setSignupVisible(false); // Close signup if open
+  };
+
+  const handleSignupClick = () => {
+    setSignupVisible(true);
+    setLoginVisible(false); // Close login if open
+  };
+
+  const handleClosePopup = () => {
+    setLoginVisible(false);
+    setSignupVisible(false);
+  };
+
+  return (
+    <>
+      <Header onLogin={handleLoginClick} />
+      <Login
+        isVisible={isLoginVisible}
+        onSignup={handleSignupClick}
+        onClose={handleClosePopup}
+      />
+      <Signup
+        isVisible={isSignupVisible}
+        onClose={handleClosePopup}
+        onLogin={handleLoginClick}
+      />
+    </>
+  );
+}
+
+export default App;
