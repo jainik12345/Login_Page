@@ -944,3 +944,379 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+NAVBAR  :
+
+
+
+import { useState, useEffect } from "react";
+
+import { FaBars, FaTimes } from "react-icons/fa";
+
+import "./Navbar.css";
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const toggleAboutDropdown = () => {
+    if (isMobile) {
+      setAboutDropdownOpen(!aboutDropdownOpen);
+    }
+  };
+
+  return (
+    <>
+      <nav className="navbar">
+        <div className="navbar-logo">YourLogo</div>
+        <div className="menu-icon" onClick={toggleMenu}>
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </div>
+        <ul className={menuOpen ? "nav-menu active" : "nav-menu"}>
+          <li>
+            <a href="#home">Home</a>
+          </li>
+          <li className="dropdown">
+            <a href="#about_us" onClick={toggleAboutDropdown}>
+              About Us
+            </a>
+            <ul
+              className={`dropdown-content ${
+                aboutDropdownOpen ? "active" : ""
+              }`}
+            >
+              <li>
+                <a href="#about1">About1</a>
+              </li>
+              <li>
+                <a href="#about2">About2</a>
+              </li>
+              <li>
+                <a href="#about3">About3</a>
+              </li>
+              <li>
+                <a href="#about4">About4</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#services">Services</a>
+          </li>
+          <li>
+            <a href="#career">Career</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </>
+  );
+};
+
+export default Navbar;
+
+
+
+CSS :
+
+
+/* Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+    background-color: #333;
+    color: white;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .nav-menu {
+    display: flex;
+    list-style: none;
+  }
+  
+  .nav-menu li {
+    margin: 0 15px;
+    position: relative;
+  }
+  
+  .nav-menu li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .nav-menu .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #444;
+    list-style: none;
+    padding: 10px;
+    z-index: 1;
+  }
+  
+  .nav-menu .dropdown-content li {
+    margin: 5px 0;
+  }
+  
+  .nav-menu .dropdown-content li a {
+    color: white;
+  }
+  
+  @media screen and (min-width: 1025px) {
+    .nav-menu .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .menu-icon {
+      display: block;
+    }
+  
+    .nav-menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      text-align: center;
+      background-color: #333;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      padding: 10px 0;
+    }
+  
+    .nav-menu.active {
+      display: flex;
+    }
+  
+    .nav-menu li {
+      margin: 10px 0;
+    }
+  
+    .nav-menu .dropdown-content.active {
+      display: block;
+      position: static;
+    }
+  }
+  
+
+  Client :
+import "./Client.css";
+import logo from "../../assets/logo.png";
+const Client = () => {
+  return (
+    <>
+      <div className="marquee">
+        <div className="marquee-content">
+          <img src={logo} alt="Apollo Hospitals" />
+          <img src={logo} alt="Domino's" />
+          <img src={logo} alt="Lodha" />
+          <img src={logo} alt="Taj" />
+          <img src={logo} alt="UltraTech" />
+          <img src={logo} alt="Vodafone" />
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Client;
+
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-content {
+  display: flex;    
+  animation: marquee 15s linear infinite;
+}
+
+.marquee-content img {
+  height: 100px;
+  margin: 0 20px;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
+Footer : 
+
+import "./Footer.css";
+const Footer = () => {
+  return (
+    <>
+      <footer className="footer">
+        <div className="footer-section">
+          <h3>Our Head Office</h3>
+          <p>
+            <i className="fas fa-map-marker-alt"></i> Checkmate Corporate Office
+            <br />
+            Amaan Towers, GF – 6,7,8,9,
+            <br />
+            Suvas Colony, Fatehgunj,
+            <br />
+            Vadodara, Gujarat (India).
+          </p>
+          <p>
+            <i className="fas fa-phone"></i> +91 265 6698200
+          </p>
+        </div>
+        <div className="footer-section">
+          <h3>About Us</h3>
+          <ul>
+            <li>Company Overview</li>
+            <li>Checkmate History</li>
+            <li>Management Team</li>
+            <li>Awards & Accreditation</li>
+            <li>Compliance Documents</li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h3>Our Services</h3>
+          <ul>
+            <li>Security Services</li>
+            <li>Cash Management</li>
+            <li>Facility Management</li>
+            <li>Fire & Safety Training</li>
+            <li>Electronic Solutions</li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h3>Connect with Us</h3>
+          <div className="social-icons">
+            <i className="fab fa-facebook"></i>
+            <i className="fab fa-twitter"></i>
+            <i className="fab fa-google-plus"></i>
+            <i className="fab fa-instagram"></i>
+            <i className="fab fa-youtube"></i>
+          </div>
+          <div className="logo">
+            <img src="checkmate-logo.png" alt="Checkmate Logo" />
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+};
+
+export default Footer;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+}
+.footer {
+  width: 100%;
+  max-width: 1440px;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f4f4f4;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin: 10px;
+}
+
+.footer-section h3 {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  border-bottom: 2px solid black;
+}
+
+.footer-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 5px 0;
+  color: #555;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons i {
+  font-size: 24px;
+  color: #555;
+}
+
+.logo img {
+  max-width: 100px;
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
